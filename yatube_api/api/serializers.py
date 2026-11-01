@@ -66,13 +66,13 @@ class FollowSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         user = self.context['request'].user
         following = validated_data['following']
-        
+
         if Follow.objects.filter(user=user, following=following).exists():
             raise serializers.ValidationError(
                 {'following': 'Вы уже подписаны на этого пользователя'}
             )
-            
+
         return Follow.objects.create(
-            user=user, 
+            user=user,
             following=following
         )
